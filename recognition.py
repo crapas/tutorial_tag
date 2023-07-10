@@ -7,14 +7,11 @@ from torch.utils.data import DataLoader, random_split
 from torchvision.transforms import transforms
 from torchvision.datasets import ImageFolder
 
-# Set seed for reproducibility
-random.seed(42)
-torch.manual_seed(42)
+random.seed(12)
+torch.manual_seed(12)
 
-# Set device
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-# Define the CNN model
 class DigitRecognizer(nn.Module):
     def __init__(self):
         super(DigitRecognizer, self).__init__()
@@ -36,32 +33,25 @@ class DigitRecognizer(nn.Module):
         x = self.fc2(x)
         return x
 
-# Define transforms
 transform = transforms.Compose([transforms.Grayscale(), transforms.ToTensor()])
 
-# Load the dataset
 data_dir = "data"  # Directory containing the digit images
 dataset = ImageFolder(data_dir, transform=transform)
 
-# Calculate train-test split
 total_size = len(dataset)
 train_size = int(0.9 * total_size)
 test_size = total_size - train_size
 train_dataset, test_dataset = random_split(dataset, [train_size, test_size])
 
-# Create data loaders
 batch_size = 64
 train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
 test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
 
-# Initialize the model
 model = DigitRecognizer().to(device)
 
-# Define loss function and optimizer
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.Adam(model.parameters(), lr=0.001)
 
-# Training loop
 num_epochs = 10
 for epoch in range(num_epochs):
     total_loss = 0
@@ -69,11 +59,9 @@ for epoch in range(num_epochs):
         data = data.to(device)
         targets = targets.to(device)
 
-        # Forward pass
         outputs = model(data)
         loss = criterion(outputs, targets)
 
-        # Backward and optimize
         optimizer.zero_grad()
         loss.backward()
         optimizer.step()
@@ -85,8 +73,6 @@ for epoch in range(num_epochs):
 
     print(f"Epoch [{epoch + 1}/{num_epochs}], Loss: {total_loss / len(train_loader):.4f}")
 
-
-# Evaluation
 model.eval()
 with torch.no_grad():
     correct = 0
