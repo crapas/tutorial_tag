@@ -7,6 +7,8 @@ from torch.utils.data import DataLoader, random_split
 from torchvision.transforms import transforms
 from torchvision.datasets import ImageFolder
 
+# second
+
 random.seed(12)
 torch.manual_seed(12)
 
