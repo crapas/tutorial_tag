@@ -8,6 +8,7 @@ from torchvision.transforms import transforms
 from torchvision.datasets import ImageFolder
 
 # second
+# third
 
 random.seed(12)
 torch.manual_seed(12)
