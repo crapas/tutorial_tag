@@ -13,6 +13,7 @@ from torchvision.datasets import ImageFolder
 # forth
 # fifth
 # sixth
+# seventh
 
 random.seed(12)
 torch.manual_seed(12)
