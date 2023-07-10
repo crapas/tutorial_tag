@@ -9,6 +9,7 @@ from torchvision.datasets import ImageFolder
 
 # second
 # third
+# on tag 1.0.0
 
 random.seed(12)
 torch.manual_seed(12)
